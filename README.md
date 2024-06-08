@@ -38,9 +38,3 @@
 <br/><br/>
 
 ### 🙋‍♂️ 프로젝트 멤버
-
-| <img src="https://avatars.githubusercontent.com/u/153741544?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/67379144?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/127363110?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/144431560?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/114460404?v=4" width="150" height="150"/> |
-| :-----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: |
-|                       강동석 [@show1486](https://github.com/show1486)                       |                     강해원 [@riverSun1](https://github.com/riverSun1)                      |                  김택수 [@Elephant24456](https://github.com/Elephant24456)                  |                      이하름 [@LeeHareum](https://github.com/LeeHareum)                      |                        전은겸 [@eunkyum](https://github.com/eunkyum)                        |
-
-<br/>

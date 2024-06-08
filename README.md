@@ -37,4 +37,12 @@
 <img src="https://github.com/riverSun1/SpartaHub/assets/67379144/f28ed01f-48b6-4bbf-ba2d-2703127e37a1" width="900"/>
 <br/><br/>
 
-### 🙋‍♂️ 프로젝트 멤버
+### 🙋‍♂ 프로젝트 멤버
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/riverSun1"><img src="https://github.com/riverSun1.png" width="100px" alt=""/><br /><sub><b>FE : 강해원 </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/LeeHareum"><img src="https://github.com/LeeHareum.png" width="100px" alt=""/><br /><sub><b>FE : 이하름 </b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>

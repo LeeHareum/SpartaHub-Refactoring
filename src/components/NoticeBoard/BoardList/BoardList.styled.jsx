@@ -49,6 +49,24 @@ export const TableRow = styled.tr`
 export const TableData = styled.td`
   padding: 10px;
   border-bottom: 1px solid var(--black-60);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: ${(props) => props.width || "auto"};
+  vertical-align: middle;
+
+  a,
+  span,
+  div {
+    text-decoration: none;
+    color: var(--black-30);
+    pointer-events: none;
+    display: inline-block;
+    width: ${(props) => props.linkWidth || "300px"};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 export const PaginationContainer = styled.div`

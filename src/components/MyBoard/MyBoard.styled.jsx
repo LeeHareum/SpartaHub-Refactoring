@@ -42,10 +42,18 @@ export const TableRow = styled.tr`
 export const TableData = styled.td`
   padding: 10px;
   border-bottom: 1px solid var(--black-60);
-  text-align: left;
+  position: relative;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+
+  &:not(:last-child) {
+    width: ${(props) => props.width || "auto"}; // 각각의 너비 조절
+  }
+`;
+
+export const TableLinkData = styled(TableData)`
+  pointer-events: none;
 `;
 
 export const PaginationContainer = styled.div`

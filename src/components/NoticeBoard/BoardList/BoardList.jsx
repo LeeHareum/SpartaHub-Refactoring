@@ -87,22 +87,24 @@ const BoardList = () => {
               <TableHeader>게시물 번호</TableHeader>
               <TableHeader>제목</TableHeader>
               <TableHeader>URL</TableHeader>
-              <TableHeader>일자</TableHeader>
               <TableHeader>닉네임</TableHeader>
+              <TableHeader>일자</TableHeader>
             </TableRow>
           </thead>
           <tbody>
             {currentPagePosts.map((board) => (
               <TableRow key={board.id} onClick={() => handleRowClick(board.id)}>
                 <TableData>{board.id}</TableData>
-                <TableData>{board.title}</TableData>
+                <TableData width="100px">
+                  <span>{board.title}</span>
+                </TableData>
                 <TableData>
                   <a href={board.url} target="_blank">
                     {board.url}
                   </a>
                 </TableData>
-                <TableData>{board.created_at}</TableData>
                 <TableData>{board.users.username}</TableData>
+                <TableData>{board.created_at}</TableData>
               </TableRow>
             ))}
           </tbody>

@@ -53,11 +53,12 @@ export const TableData = styled.td`
   overflow: hidden;
   text-overflow: ellipsis;
   width: ${(props) => props.width || "auto"};
-  vertical-align: middle;
+  vertical-align: bottom;
 
   a,
   span,
   div {
+    padding-top: 2px;
     text-decoration: none;
     color: var(--black-30);
     pointer-events: none;

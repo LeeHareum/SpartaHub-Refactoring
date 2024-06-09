@@ -33,8 +33,8 @@ const BoardList = () => {
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabase
-        .from("job-board")
-        .select("id, title, content,created_at, url, user_id, users:users!job-board_user_id_fkey(username, track)")
+        .from("study-board")
+        .select("id, title, content,created_at,  user_id, users:users!study-board_user_id_fkey(username, track)")
         .order("created_at", { ascending: false });
       if (error) {
         error.message;
@@ -42,7 +42,7 @@ const BoardList = () => {
         const formattedData = data.map((item) => ({
           ...item,
           created_at: new Date(item.created_at).toLocaleString("ko-KR", {
-            year: "2-digit",
+            year: "numeric",
             month: "2-digit",
             day: "2-digit",
             hour: "2-digit",
@@ -56,21 +56,31 @@ const BoardList = () => {
   }, []);
 
   const handleChange = () => {
-    navigate(`/job/1`);
+    navigate(`/study/write`);
   };
   const offset = currentPage * itemsPerPage;
   const currentPagePosts = boards.slice(offset, offset + itemsPerPage);
   const pageCount = Math.ceil(boards.length / itemsPerPage);
 
-  const handleRowClick = (id) => {
-    navigate(`/post/${id}`);
+  const handleRowClick = async (id) => {
+    const { data, error } = await supabase
+      .from("study-board")
+      .select("id, title, content, created_at, user_id")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      console.error("Error fetching post:", error);
+    } else {
+      navigate(`/study/${id}`, { state: { post: data } });
+    }
   };
 
   return (
     <Container>
       <BoardSection>
         <TitleDiv>
-          <h2 style={{ fontWeight: "bold", fontSize: "1.6rem" }}>채용공고 공유</h2>
+          <h2 style={{ fontWeight: "bold", fontSize: "1.6rem" }}>스터디/프로젝트 공유</h2>
         </TitleDiv>
         <DivBar>
           <Pdiv>
@@ -86,7 +96,6 @@ const BoardList = () => {
             <TableRow>
               <TableHeader>No.</TableHeader>
               <TableHeader>제목</TableHeader>
-              <TableHeader>URL</TableHeader>
               <TableHeader>닉네임</TableHeader>
               <TableHeader>일자</TableHeader>
             </TableRow>
@@ -95,16 +104,11 @@ const BoardList = () => {
             {currentPagePosts.map((board) => (
               <TableRow key={board.id} onClick={() => handleRowClick(board.id)}>
                 <TableData>{board.id}</TableData>
-                <TableData width="100px">
+                <TableData width="400px">
                   <span>{board.title}</span>
                 </TableData>
-                <TableData>
-                  <a href={board.url} target="_blank">
-                    {board.url}
-                  </a>
-                </TableData>
                 <TableData>{board.users.username}</TableData>
-                <TableData>{board.created_at}</TableData>
+                <TableData width="250px">{board.created_at}</TableData>
               </TableRow>
             ))}
           </tbody>

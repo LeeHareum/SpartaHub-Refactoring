@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/spartahub_logo.png";
 import supabase from "../../supabaseClient";
@@ -27,45 +27,64 @@ import {
 const itemsPerPage = 10;
 
 const MyPage = () => {
-  const dispatch = useDispatch();
   const [boards, setBoards] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [profileImage, setProfileImage] = useState(null);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
   const defaultProfileImage = "/default_profile.png";
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase
-        .from("board")
-        .select("id, title, content, created_at, url, user_id, users:users!board_user_id_fkey(username, track)")
-        .eq("user_id", user.id)
-        .order("id", { ascending: true });
-      if (error) {
-        console.log("error => ", error);
-      } else {
-        const formattedData = data.map((item) => ({
-          ...item,
-          created_at: new Date(item.created_at).toLocaleString()
-        }));
-        setBoards(formattedData);
+      if (!user) return;
+      const tableNames = ["job-board", "free-board", "study-board"];
+      const allData = [];
+
+      for (const tableName of tableNames) {
+        const { data, error } = await supabase
+          .from(tableName)
+          .select("id, title, content, created_at, url, user_id,  users (username, track)")
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          console.log(`Error fetching data from ${tableName}: ${error.message}`);
+          continue;
+        } else {
+          const formattedData = data.map((item) => ({
+            ...item,
+            created_at: new Date(item.created_at).toLocaleString(),
+            tableName
+          }));
+          allData.push(...formattedData);
+        }
       }
+
+      setBoards(allData);
     };
+
     fetchData();
   }, [user]);
 
   useEffect(() => {
     const fetchUserImage = async () => {
+      if (!user) return;
       try {
-        const { data: userData, error } = await supabase.from("users").select("image").eq("id", user.id).single();
+        const { data: userData, error } = await supabase
+          .from("users")
+          .select("image, username")
+          .eq("id", user.id)
+          .single();
+
         if (error) {
-          throw error;
+          throw new Error(`Error fetching user image: ${error.message}`);
         }
         const profileImageUrl = userData.image || defaultProfileImage;
         setProfileImage(profileImageUrl);
+        setUsername(userData.username);
       } catch (error) {
-        error.message;
+        console.log(error.message);
       }
     };
     if (user) {
@@ -81,8 +100,8 @@ const MyPage = () => {
     navigate("/mypage/1");
   };
 
-  const handlePostClick = (id) => {
-    navigate(`/posts/${id}/edit`);
+  const handlePostClick = (id, tableName) => {
+    navigate(`/posts/${tableName}/${id}/edit`);
   };
 
   const handleClickHome = () => {
@@ -98,7 +117,7 @@ const MyPage = () => {
       <ProfileSection>
         <ProfileLogo src={logo} alt="로고" />
         <ProfileImg src={profileImage || defaultProfileImage} alt="프로필이미지" />
-        <ProfileName>{user.user_metadata.username}님</ProfileName>
+        <ProfileName>{username}님</ProfileName>
         <ButtonContainer>
           <ProfileBtn onClick={handleClickHome}>Home</ProfileBtn>
           <ProfileBtn onClick={handleProfileEdit}>내정보변경</ProfileBtn>
@@ -109,21 +128,27 @@ const MyPage = () => {
         <Table>
           <thead>
             <TableRow>
-              <TableHeader>게시물 번호</TableHeader>
+              <TableHeader>No.</TableHeader>
               <TableHeader>제목</TableHeader>
               <TableHeader>링크</TableHeader>
-              <TableHeader>작성일</TableHeader>
               <TableHeader>닉네임</TableHeader>
+              <TableHeader>작성일</TableHeader>
             </TableRow>
           </thead>
           <tbody>
             {currentPagePosts.map((board) => (
               <TableRow key={board.id} onClick={() => handlePostClick(board.id)}>
                 <TableData>{board.id}</TableData>
-                <TableData>{board.title}</TableData>
-                <TableData>{board.url}</TableData>
-                <TableData>{board.created_at}</TableData>
+                <TableData width="100px">
+                  <span>{board.title}</span>
+                </TableData>
+                <TableData>
+                  <a href={board.url} target="_blank" rel="noopener noreferrer">
+                    {board.url}
+                  </a>
+                </TableData>
                 <TableData>{board.users.username}</TableData>
+                <TableData>{board.created_at}</TableData>
               </TableRow>
             ))}
           </tbody>

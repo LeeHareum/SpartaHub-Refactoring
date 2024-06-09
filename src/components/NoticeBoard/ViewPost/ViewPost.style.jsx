@@ -35,11 +35,17 @@ export const Title = styled.h1`
 export const UrlLink = styled.a`
   font-size: 1.2em;
   color: var(--black-50);
-  text-decoration: underline;
+  text-decoration: none;
   margin-bottom: 27px;
+  width: 600px;
+  overflow: hidden;
+  display: block;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-align: center;
 
   &:hover {
-    color: #005bb5;
+    color: var(--red-30);
   }
 `;
 

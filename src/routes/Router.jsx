@@ -16,7 +16,7 @@ const Router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/post/:id", element: <ViewPost /> },
-      { path: "/posts/:id/edit", element: <MyBoardEdit /> },
+      { path: "/posts/:tableName/:id/edit", element: <MyBoardEdit /> },
       { path: "/job/:id", element: <NoticeboardModify /> },
       { path: "/study", element: <></> },
       { path: "/freeboard", element: <FreeBoard /> },

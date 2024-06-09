@@ -3,30 +3,34 @@ import styled from "styled-components";
 import "../../styles/designToken.css";
 
 export const BoardSection = styled.section`
+  margin-left: 330px;
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  margin: 50px;
   align-items: center;
+  flex-direction: column;
   width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 `;
 export const Container = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 `;
 
 export const Title = styled.h1`
-  font-size: 2em;
+  font-size: 1.5em;
+  margin-top: 50px;
   margin-bottom: 50px;
+  text-align: left;
+  margin-left: 0;
+  width: 100%;
 `;
 
 export const Table = styled.table`
   width: 100%;
-  text-align: center;
-  font-size: smaller;
-  font-weight: normal;
   border-collapse: collapse;
+  text-align: center;
 `;
 
 export const TableHeader = styled.th`
@@ -39,15 +43,37 @@ export const TableHeader = styled.th`
 `;
 
 export const TableRow = styled.tr`
+  vertical-align: middle;
   &:hover {
-    cursor: pointer;
     background-color: var(--red-99);
+    cursor: pointer;
   }
 `;
 
 export const TableData = styled.td`
   padding: 10px;
   border-bottom: 1px solid var(--black-60);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: ${(props) => props.width || "auto"};
+  vertical-align: middle;
+
+  a,
+  span,
+  div {
+    text-decoration: none;
+    color: var(--black-30);
+    display: inline-block;
+    width: ${(props) => props.linkWidth || "300px"};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+`;
+
+export const TableLinkData = styled(TableData)`
+  pointer-events: none;
 `;
 
 export const PaginationContainer = styled.div`

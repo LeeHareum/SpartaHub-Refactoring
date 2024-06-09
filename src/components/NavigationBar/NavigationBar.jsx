@@ -61,7 +61,7 @@ const NavigationBar = () => {
           <NavLink to="/study">스터디/프로젝트</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/board">자유게시판</NavLink>
+          <NavLink to="/freeboard">자유게시판</NavLink>
         </NavItem>
       </NavList>
       <IconNavLink>

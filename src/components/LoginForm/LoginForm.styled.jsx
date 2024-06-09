@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   max-width: 1000px;
+  max-height: 1000px;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,9 @@ export const Container = styled.div`
 `;
 
 export const Form = styled.form`
-  width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 100px;
 `;
 
 export const ImgContainer = styled.div`
@@ -29,10 +31,12 @@ export const HubImg = styled.img`
 `;
 
 export const Title = styled.h2`
-  margin-bottom: 20px;
+  font-size: 17px;
+  margin-bottom: 30px;
 `;
 
 export const Label = styled.label`
+  margin-bottom: 5px;
   color: black;
   display: block;
 `;

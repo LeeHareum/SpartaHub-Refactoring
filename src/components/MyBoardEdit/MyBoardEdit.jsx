@@ -15,7 +15,6 @@ import {
   EditTextAreaContent,
   Title
 } from "../MyBoardEdit/MyBoardEdit.style";
-import NavigationBar from "../NavigationBar/NavigationBar.jsx";
 
 const MyBoardEdit = () => {
   const [title, setTitle] = useState("");
@@ -28,7 +27,7 @@ const MyBoardEdit = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const { data, error } = await supabase.from("board").select("*").eq("id", parseInt(id)).single();
+        const { data, error } = await supabase.from("job-board").select("*").eq("id", parseInt(id)).single();
 
         if (error) {
           console.error("게시물을 불러오는 중 오류가 발생했습니다:", error);
@@ -50,7 +49,7 @@ const MyBoardEdit = () => {
 
   const handleUpdate = async () => {
     try {
-      const { error } = await supabase.from("board").update({ title, url, content }).eq("id", parseInt(id));
+      const { error } = await supabase.from("job-board").update({ title, url, content }).eq("id", parseInt(id));
 
       if (error) {
         error.message;
@@ -66,7 +65,7 @@ const MyBoardEdit = () => {
 
   const handleDelete = async () => {
     try {
-      const { error } = await supabase.from("board").delete().eq("id", parseInt(id));
+      const { error } = await supabase.from("job-board").delete().eq("id", parseInt(id));
 
       if (error) {
         error.message;
@@ -81,7 +80,6 @@ const MyBoardEdit = () => {
 
   return (
     <Container>
-      <NavigationBar />
       <EditSection>
         <Title>내 게시물 수정</Title>
         <EditForm onSubmit={(e) => e.preventDefault()}>

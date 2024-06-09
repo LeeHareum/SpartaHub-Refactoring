@@ -17,9 +17,9 @@ import {
   TableHeader,
   TableRow,
   TitleDiv
-} from "./Header.styled";
+} from "./BoardList.styled";
 
-const Header = () => {
+const BoardList = () => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const navigate = useNavigate();
   const [boards, setBoards] = useState([]);
@@ -33,8 +33,8 @@ const Header = () => {
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabase
-        .from("board")
-        .select("id, title, content,created_at, url, user_id, users:users!board_user_id_fkey(username, track)")
+        .from("free-board")
+        .select("id, title, content,created_at, user_id, users:users!free-board_user_id_fkey(username, track)")
         .order("created_at", { ascending: false });
       if (error) {
         error.message;
@@ -86,7 +86,6 @@ const Header = () => {
             <TableRow>
               <TableHeader>게시물 번호</TableHeader>
               <TableHeader>제목</TableHeader>
-              <TableHeader>URL</TableHeader>
               <TableHeader>일자</TableHeader>
               <TableHeader>닉네임</TableHeader>
             </TableRow>
@@ -96,11 +95,6 @@ const Header = () => {
               <TableRow key={board.id} onClick={() => handleRowClick(board.id)}>
                 <TableData>{board.id}</TableData>
                 <TableData>{board.title}</TableData>
-                <TableData>
-                  <a href={board.url} target="_blank">
-                    {board.url}
-                  </a>
-                </TableData>
                 <TableData>{board.created_at}</TableData>
                 <TableData>{board.users.username}</TableData>
               </TableRow>
@@ -123,4 +117,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default BoardList;

@@ -11,6 +11,9 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+export const Nav = styled.div`
+  width: 100%;
+`;
 
 export const DetailSection = styled.section`
   width: 60%;

@@ -37,6 +37,9 @@ export const TableHeader = styled.th`
   border-top: 1.7px solid var(--black-30);
   border-bottom: 1.7px solid var(--black-30);
   text-align: center;
+  &:nth-child(3) {
+    padding-left: 70px;
+  }
 `;
 
 export const TableRow = styled.tr`
@@ -49,6 +52,28 @@ export const TableRow = styled.tr`
 export const TableData = styled.td`
   padding: 10px;
   border-bottom: 1px solid var(--black-60);
+  position: relative;
+  a {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--black-30);
+    text-decoration: none;
+    width: 230px;
+    overflow: hidden;
+    pointer-events: none;
+    white-space: nowrap;
+    display: block;
+    margin-left: 30px;
+  }
+`;
+
+export const StyledTableData = styled(TableData)`
+  width: ${(props) => props.width || "auto"};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: ${(props) => props.maxWidth || "130px"};
 `;
 
 export const PaginationContainer = styled.div`

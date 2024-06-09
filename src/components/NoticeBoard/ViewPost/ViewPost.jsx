@@ -11,8 +11,8 @@ const ViewPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       const { data, error } = await supabase
-        .from("board")
-        .select("id, title, content, created_at, url, user_id, users:users!board_user_id_fkey(username, track)")
+        .from("job-board")
+        .select("id, title, content, created_at, url, user_id, users (username, track)")
         .eq("id", id)
         .single();
       if (error) {

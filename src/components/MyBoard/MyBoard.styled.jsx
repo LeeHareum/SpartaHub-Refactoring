@@ -3,17 +3,14 @@ import styled from "styled-components";
 import "../../styles/designToken.css";
 
 export const BoardSection = styled.section`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: 50px;
-  align-items: center;
   width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 `;
 export const Container = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 `;
 
 export const Title = styled.h1`
@@ -23,9 +20,6 @@ export const Title = styled.h1`
 
 export const Table = styled.table`
   width: 100%;
-  text-align: center;
-  font-size: smaller;
-  font-weight: normal;
   border-collapse: collapse;
 `;
 
@@ -39,7 +33,7 @@ export const TableHeader = styled.th`
 `;
 
 export const TableRow = styled.tr`
-  &:hover {
+  &:nth-child(even) {
     cursor: pointer;
     background-color: var(--red-99);
   }
@@ -48,6 +42,10 @@ export const TableRow = styled.tr`
 export const TableData = styled.td`
   padding: 10px;
   border-bottom: 1px solid var(--black-60);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const PaginationContainer = styled.div`

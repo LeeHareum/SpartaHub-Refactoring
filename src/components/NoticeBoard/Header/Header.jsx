@@ -13,10 +13,10 @@ import {
   Pdiv,
   Ptag,
   Table,
-  TableData,
   TableHeader,
   TableRow,
-  TitleDiv
+  TitleDiv,
+  StyledTableData
 } from "./Header.styled";
 
 const Header = () => {
@@ -33,11 +33,11 @@ const Header = () => {
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabase
-        .from("board")
-        .select("id, title, content,created_at, url, user_id, users:users!board_user_id_fkey(username, track)")
+        .from("job-board")
+        .select("id, title, content, created_at, url, user_id,  users (username, track)")
         .order("created_at", { ascending: false });
       if (error) {
-        error.message;
+        console.error("Error fetching data:", error.message);
       } else {
         const formattedData = data.map((item) => ({
           ...item,
@@ -94,15 +94,15 @@ const Header = () => {
           <tbody>
             {currentPagePosts.map((board) => (
               <TableRow key={board.id} onClick={() => handleRowClick(board.id)}>
-                <TableData>{board.id}</TableData>
-                <TableData>{board.title}</TableData>
-                <TableData>
+                <StyledTableData width="70px">{board.id}</StyledTableData>
+                <StyledTableData width="130px">{board.title}</StyledTableData>
+                <StyledTableData width="250px">
                   <a href={board.url} target="_blank">
                     {board.url}
                   </a>
-                </TableData>
-                <TableData>{board.created_at}</TableData>
-                <TableData>{board.users.username}</TableData>
+                </StyledTableData>
+                <StyledTableData width="100px">{board.users.username}</StyledTableData>
+                <StyledTableData width="150px">{board.created_at}</StyledTableData>
               </TableRow>
             ))}
           </tbody>

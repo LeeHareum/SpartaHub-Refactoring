@@ -22,7 +22,7 @@ const BoardList = () => {
   const user = useSelector((state) => state.user.user);
 
   const handleAdd = async () => {
-    const { data, error } = await supabase.from("board").insert({
+    const { data, error } = await supabase.from("job-board").insert({
       user_id: user.id,
       title,
       content,

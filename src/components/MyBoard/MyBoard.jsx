@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/spartahub_logo.png";
 import supabase from "../../supabaseClient";
@@ -27,7 +27,6 @@ import {
 const itemsPerPage = 10;
 
 const MyPage = () => {
-  const dispatch = useDispatch();
   const [boards, setBoards] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [profileImage, setProfileImage] = useState(null);
@@ -37,26 +36,39 @@ const MyPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase
-        .from("board")
-        .select("id, title, content, created_at, url, user_id, users:users!board_user_id_fkey(username, track)")
-        .eq("user_id", user.id)
-        .order("id", { ascending: true });
-      if (error) {
-        console.log("error => ", error);
-      } else {
-        const formattedData = data.map((item) => ({
-          ...item,
-          created_at: new Date(item.created_at).toLocaleString()
-        }));
-        setBoards(formattedData);
+      if (!user) return;
+      const tableNames = ["job-board", "free-board", "study-board"];
+      const allData = [];
+
+      for (const tableName of tableNames) {
+        const { data, error } = await supabase
+          .from(tableName)
+          .select("id, title, content, created_at, url, user_id,  users (username, track)")
+          .eq("user_id", user.id)
+          .order("id", { ascending: true });
+
+        if (error) {
+          console.log(`error fetching data from ${tableName} => `, error);
+          continue;
+        } else {
+          const formattedData = data.map((item) => ({
+            ...item,
+            created_at: new Date(item.created_at).toLocaleString(),
+            tableName
+          }));
+          allData.push(...formattedData);
+        }
       }
+
+      setBoards(allData);
     };
+
     fetchData();
   }, [user]);
 
   useEffect(() => {
     const fetchUserImage = async () => {
+      if (!user) return;
       try {
         const { data: userData, error } = await supabase.from("users").select("image").eq("id", user.id).single();
         if (error) {
@@ -65,7 +77,7 @@ const MyPage = () => {
         const profileImageUrl = userData.image || defaultProfileImage;
         setProfileImage(profileImageUrl);
       } catch (error) {
-        error.message;
+        console.log(error.message);
       }
     };
     if (user) {
@@ -81,8 +93,8 @@ const MyPage = () => {
     navigate("/mypage/1");
   };
 
-  const handlePostClick = (id) => {
-    navigate(`/posts/${id}/edit`);
+  const handlePostClick = (id, tableName) => {
+    navigate(`/posts/${tableName}/${id}/edit`);
   };
 
   const handleClickHome = () => {

@@ -1,103 +1,130 @@
+import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 
 export const BoardSection = styled.section`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin: 0 auto;
   align-items: center;
-  width: 90%;
-`;
-export const TitleDiv = styled.div`
+  margin-top: 50px;
   width: 100%;
-  height: 100px;
-  h1 {
-    font-size: large;
-    text-align: start;
-    line-height: 150px;
-  }
 `;
-export const Title = styled.h1`
-  font-size: 45px;
+
+export const Container = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+`;
+
+export const Ptag = styled.p`
+  font-size: 13px;
+  margin: 0;
+  padding-top: 10px;
+`;
+
+export const Table = styled.table`
+  width: 100%;
+  text-align: center;
+  font-size: smaller;
+  font-weight: normal;
+  border-collapse: collapse;
+`;
+
+export const TableHeader = styled.th`
+  background-color: var(--white);
+  color: var(--black);
+  padding: 10px;
+  border-top: 1.7px solid var(--black-30);
+  border-bottom: 1.7px solid var(--black-30);
   text-align: center;
 `;
 
-export const Section = styled.section`
-  border-top: 2px solid var(--black-90);
-  padding: 10px;
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  div {
-    margin-top: 30px;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  height: 27px;
-  padding-left: 5px;
-  outline: none;
-  border: 1px solid var(--black-80);
-  border-radius: 5px;
+export const TableRow = styled.tr`
   &:hover {
-    border: 1px solid var(--red-30);
+    cursor: pointer;
+    background-color: var(--red-99);
   }
 `;
 
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: end;
-  margin-left: 570px;
+export const TableData = styled.td`
+  padding: 10px;
+  border-bottom: 1px solid var(--black-60);
 `;
 
-export const CreateBtn = styled.button`
-  margin: auto;
-  padding: 13px 23px;
-  background-color: var(--pink-50);
-  color: var(--pink-90);
-  cursor: pointer;
-  font-size: smaller;
-  border: none;
-  border-radius: 7px;
-  transition: background-color 0.3s ease;
+export const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+`;
 
+export const Pagination = styled(ReactPaginate).attrs({
+  activeClassName: "active"
+})`
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: inline-block;
+    margin: 0 5px;
+
+    &.active a {
+      background-color: var(--red-90);
+      color: var(--pink-90);
+      border-radius: 3px;
+    }
+
+    &:hover:not(.active) a {
+      color: var(--pink-50);
+    }
+
+    a {
+      cursor: pointer;
+      padding: 3px 5px;
+      color: var(--black);
+      text-decoration: none;
+    }
+  }
+`;
+
+export const DivBar = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: flex-end;
+  cursor: pointer;
+`;
+export const Button = styled.button`
+  background-color: var(--pink-50);
+  color: var(--purple-90);
+  margin-bottom: 5px;
+  width: 8%;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
   &:hover {
     background-color: var(--red-30);
     color: var(--red-99);
   }
-
-  &:active {
-    box-shadow: none;
-    transform: translateY(2px);
-  }
 `;
 
-export const TextAreaContent = styled.textarea`
-  width: 98%;
-  height: 150px;
-  padding: 10px;
-  padding-left: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: large;
-  outline: none;
-  &:focus {
-    border-color: var(--red-30);
-  }
-`;
-
-export const EditLabel = styled.label`
-  margin-top: 20px;
+export const Pdiv = styled.div`
   display: flex;
-  font-size: medium;
+  p {
+    text-align: center;
+    line-height: 20px;
+  }
+`;
+
+export const TitleDiv = styled.div`
+  width: 100%;
+  height: 40px;
+  h1 {
+    font-size: 5em;
+    text-align: center;
+    line-height: 200px;
+  }
 `;

@@ -1,10 +1,8 @@
-import NavigationBar from "../../src/components/NavigationBar/NavigationBar";
-import Header from "../components/NoticeBoard/Header/Header";
+import BoardList from "../components/NoticeBoard/BoardList/BoardList";
 const NoticeBoard = () => {
   return (
     <div>
-      <NavigationBar />
-      <Header />
+      <BoardList />
     </div>
   );
 };

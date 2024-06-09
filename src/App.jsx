@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { RouterProvider } from "react-router-dom";
 import { login, logout } from "./redux/slices/userSlice";
 import Router from "./routes/Router.jsx";
 import GlobalStyle from "./styles/Globalstyle";
@@ -21,7 +22,7 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      <Router />
+      <RouterProvider router={Router} />
     </div>
   );
 }

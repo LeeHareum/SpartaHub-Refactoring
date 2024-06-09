@@ -45,7 +45,7 @@ const MyPage = () => {
           .from(tableName)
           .select("id, title, content, created_at, url, user_id,  users (username, track)")
           .eq("user_id", user.id)
-          .order("id", { ascending: true });
+          .order("created_at", { ascending: false });
 
         if (error) {
           console.log(`error fetching data from ${tableName} => `, error);

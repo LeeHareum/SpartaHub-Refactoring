@@ -3,6 +3,11 @@ import styled from "styled-components";
 import "../../styles/designToken.css";
 
 export const BoardSection = styled.section`
+  margin-left: 330px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
@@ -14,9 +19,12 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  margin-top: 100px;
-  font-size: 2em;
+  font-size: 1.5em;
+  margin-top: 50px;
   margin-bottom: 50px;
+  text-align: left;
+  margin-left: 0;
+  width: 100%;
 `;
 
 export const Table = styled.table`

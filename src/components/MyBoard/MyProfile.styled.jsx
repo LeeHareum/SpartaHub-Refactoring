@@ -4,16 +4,21 @@ import "../../styles/designToken.css";
 export const Container = styled.main`
   display: flex;
   height: 100vh;
+  overflow: hidden;
 `;
 
 export const ProfileSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
   align-items: center;
   background-color: var(--red-90);
   height: 100vh;
-  width: 35vw;
+  width: 330px;
+  z-index: 1;
 `;
 
 export const ProfileLogo = styled.img`

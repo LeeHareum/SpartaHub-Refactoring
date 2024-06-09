@@ -30,6 +30,7 @@ const MyPage = () => {
   const [boards, setBoards] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [profileImage, setProfileImage] = useState(null);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
   const defaultProfileImage = "/default_profile.png";
@@ -48,7 +49,7 @@ const MyPage = () => {
           .order("created_at", { ascending: false });
 
         if (error) {
-          console.log(`error fetching data from ${tableName} => `, error);
+          console.log(`Error fetching data from ${tableName}: ${error.message}`);
           continue;
         } else {
           const formattedData = data.map((item) => ({
@@ -70,12 +71,18 @@ const MyPage = () => {
     const fetchUserImage = async () => {
       if (!user) return;
       try {
-        const { data: userData, error } = await supabase.from("users").select("image").eq("id", user.id).single();
+        const { data: userData, error } = await supabase
+          .from("users")
+          .select("image, username")
+          .eq("id", user.id)
+          .single();
+
         if (error) {
-          throw error;
+          throw new Error(`Error fetching user image: ${error.message}`);
         }
         const profileImageUrl = userData.image || defaultProfileImage;
         setProfileImage(profileImageUrl);
+        setUsername(userData.username);
       } catch (error) {
         console.log(error.message);
       }
@@ -110,7 +117,7 @@ const MyPage = () => {
       <ProfileSection>
         <ProfileLogo src={logo} alt="로고" />
         <ProfileImg src={profileImage || defaultProfileImage} alt="프로필이미지" />
-        <ProfileName>{user.user_metadata.username}님</ProfileName>
+        <ProfileName>{username}님</ProfileName>
         <ButtonContainer>
           <ProfileBtn onClick={handleClickHome}>Home</ProfileBtn>
           <ProfileBtn onClick={handleProfileEdit}>내정보변경</ProfileBtn>
@@ -136,7 +143,7 @@ const MyPage = () => {
                   <span>{board.title}</span>
                 </TableData>
                 <TableData>
-                  <a href={board.url} target="_blank">
+                  <a href={board.url} target="_blank" rel="noopener noreferrer">
                     {board.url}
                   </a>
                 </TableData>

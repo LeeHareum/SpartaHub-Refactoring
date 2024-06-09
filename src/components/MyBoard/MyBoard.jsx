@@ -121,21 +121,27 @@ const MyPage = () => {
         <Table>
           <thead>
             <TableRow>
-              <TableHeader>게시물 번호</TableHeader>
+              <TableHeader>No.</TableHeader>
               <TableHeader>제목</TableHeader>
               <TableHeader>링크</TableHeader>
-              <TableHeader>작성일</TableHeader>
               <TableHeader>닉네임</TableHeader>
+              <TableHeader>작성일</TableHeader>
             </TableRow>
           </thead>
           <tbody>
             {currentPagePosts.map((board) => (
               <TableRow key={board.id} onClick={() => handlePostClick(board.id)}>
                 <TableData>{board.id}</TableData>
-                <TableData>{board.title}</TableData>
-                <TableData>{board.url}</TableData>
-                <TableData>{board.created_at}</TableData>
+                <TableData width="100px">
+                  <span>{board.title}</span>
+                </TableData>
+                <TableData>
+                  <a href={board.url} target="_blank">
+                    {board.url}
+                  </a>
+                </TableData>
                 <TableData>{board.users.username}</TableData>
+                <TableData>{board.created_at}</TableData>
               </TableRow>
             ))}
           </tbody>

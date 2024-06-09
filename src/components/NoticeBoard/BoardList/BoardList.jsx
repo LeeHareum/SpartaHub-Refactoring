@@ -84,7 +84,7 @@ const BoardList = () => {
         <Table>
           <thead>
             <TableRow>
-              <TableHeader>게시물 번호</TableHeader>
+              <TableHeader>No.</TableHeader>
               <TableHeader>제목</TableHeader>
               <TableHeader>URL</TableHeader>
               <TableHeader>닉네임</TableHeader>

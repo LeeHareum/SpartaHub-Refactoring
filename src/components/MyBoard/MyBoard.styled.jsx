@@ -14,6 +14,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
+  margin-top: 100px;
   font-size: 2em;
   margin-bottom: 50px;
 `;
@@ -21,6 +22,7 @@ export const Title = styled.h1`
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+  text-align: center;
 `;
 
 export const TableHeader = styled.th`
@@ -33,22 +35,32 @@ export const TableHeader = styled.th`
 `;
 
 export const TableRow = styled.tr`
-  &:nth-child(even) {
-    cursor: pointer;
+  vertical-align: middle;
+  &:hover {
     background-color: var(--red-99);
+    cursor: pointer;
   }
 `;
 
 export const TableData = styled.td`
   padding: 10px;
   border-bottom: 1px solid var(--black-60);
-  position: relative;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: ${(props) => props.width || "auto"};
+  vertical-align: middle;
 
-  &:not(:last-child) {
-    width: ${(props) => props.width || "auto"}; // 각각의 너비 조절
+  a,
+  span,
+  div {
+    text-decoration: none;
+    color: var(--black-30);
+    display: inline-block;
+    width: ${(props) => props.linkWidth || "300px"};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 

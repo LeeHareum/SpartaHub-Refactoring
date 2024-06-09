@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import supabase from "../../../supabaseClient";
-import { Container, Content, DetailSection, StyledDate, Title, UrlLink, User } from "./ViewPost.style.jsx";
+import NavigationBar from "../../NavigationBar/NavigationBar";
+import { Container, Content, DetailSection, Nav, StyledDate, Title, UrlLink, User } from "./ViewPost.style.jsx";
 
 const ViewPost = () => {
   const { id } = useParams();
@@ -10,8 +11,8 @@ const ViewPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       const { data, error } = await supabase
-        .from("job-board")
-        .select("id, title, content, created_at, url, user_id, users:users!job-board_user_id_fkey(username, track)")
+        .from("free-board")
+        .select("id, title, content, created_at, url, user_id, users:users!free-board_user_id_fkey(username, track)")
         .eq("id", id)
         .single();
       if (error) {
@@ -34,6 +35,9 @@ const ViewPost = () => {
 
   return (
     <Container>
+      <Nav>
+        <NavigationBar />
+      </Nav>
       <DetailSection>
         <Title>{post.title}</Title>
         <UrlLink href={formatUrl(post.url)} target="_blank" rel="noopener noreferrer">

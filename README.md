@@ -4,29 +4,52 @@
 
 - 스파르타 내일배움캠프 수료생들을 위한 커뮤니티입니다.
 - 취업정보 공유게시판, 스터디/프로젝트 정보 공유게시판, 자유게시판 등으로 구성되어있습니다.
+  
+  <br/>
+
+### 📅개발 기간
+- 2024.05.31 ~ 06.06
+
   <br/>
 
 ### ⚙ 구현 기능
 
 1. 로그인, 회원 가입
    - Authentication 에서 제공하는 api를 이용하여 아래 회원 가입, 로그인을 구현
+  
 2. CRUD
    - 게시글 쓰기 기능 구현
    - 게시글 글 보여주기 구현
    - 게시글 글 수정 구현
    - 게시글 글 삭제 구현
-3. 마이 페이지 - 내 게시물 보기 - Authentication 에서 제공하는 uid 를 이용해서 내 게시물들을 확인 가능 - 프로필 수정 기능 - Storage 에서 제공하는 api를 이용하여 이미지 업로드와 다운로드 url 을 받아서 이미지 핸들링
+  
+3. 마이 페이지
+   - 내 게시물 보기
+   - Authentication 에서 제공하는 uid 를 이용해서 내 게시물들을 확인 가능
+   - 프로필 수정 기능
+   - Storage 에서 제공하는 api를 이용하여 이미지 업로드와 다운로드 url 을 받아서 이미지 핸들링
+  
    <br/>
+
 
 ### 📅 와이어프레임
 
-<img src="https://github.com/riverSun1/SpartaHub2/assets/67379144/6409282b-9fb7-443a-a6c3-103cbbe60c20" width="900"/>
+<img src="https://github.com/riverSun1/SpartaHub/assets/67379144/f28ed01f-48b6-4bbf-ba2d-2703127e37a1" width="900"/>
 <br/><br/>
 
-### 🙋‍♂️ 프로젝트 멤버
+### 🙋‍♂ 프로젝트 멤버
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/riverSun1"><img src="https://github.com/riverSun1.png" width="100px" alt=""/><br /><sub><b>FE : 강해원 </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/LeeHareum"><img src="https://github.com/LeeHareum.png" width="100px" alt=""/><br /><sub><b>FE : 이하름 </b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
 
-| <img src="https://avatars.githubusercontent.com/u/153741544?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/67379144?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/127363110?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/144431560?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/114460404?v=4" width="150" height="150"/> |
-| :-----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: |
-|                       강동석 [@show1486](https://github.com/show1486)                       |                     강해원 [@riverSun1](https://github.com/riverSun1)                      |                  김택수 [@Elephant24456](https://github.com/Elephant24456)                  |                      이하름 [@LeeHareum](https://github.com/LeeHareum)                      |                        전은겸 [@eunkyum](https://github.com/eunkyum)                        |
-
-<br/>
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"><img src="https://img.shields.io/badge/Css-1572B6?style=for-the-badge&logo=Css&logoColor=white"><img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=purple">
+<img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=">
+<img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
+<img src="https://img.shields.io/badge/supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=black">
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<img src="https://img.shields.io/badge/figma-F24E1E?style=figma&logo=figma&logoColor=white">

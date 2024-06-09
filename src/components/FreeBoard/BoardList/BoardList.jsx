@@ -13,13 +13,13 @@ import {
   Pdiv,
   Ptag,
   Table,
+  TableData,
   TableHeader,
   TableRow,
-  TitleDiv,
-  StyledTableData
-} from "./Header.styled";
+  TitleDiv
+} from "./BoardList.styled";
 
-const Header = () => {
+const BoardList = () => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const navigate = useNavigate();
   const [boards, setBoards] = useState([]);
@@ -33,11 +33,11 @@ const Header = () => {
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabase
-        .from("job-board")
-        .select("id, title, content, created_at, url, user_id,  users (username, track)")
+        .from("free-board")
+        .select("id, title, content,created_at, user_id, users:users!free-board_user_id_fkey(username, track)")
         .order("created_at", { ascending: false });
       if (error) {
-        console.error("Error fetching data:", error.message);
+        error.message;
       } else {
         const formattedData = data.map((item) => ({
           ...item,
@@ -86,7 +86,6 @@ const Header = () => {
             <TableRow>
               <TableHeader>게시물 번호</TableHeader>
               <TableHeader>제목</TableHeader>
-              <TableHeader>URL</TableHeader>
               <TableHeader>일자</TableHeader>
               <TableHeader>닉네임</TableHeader>
             </TableRow>
@@ -94,15 +93,10 @@ const Header = () => {
           <tbody>
             {currentPagePosts.map((board) => (
               <TableRow key={board.id} onClick={() => handleRowClick(board.id)}>
-                <StyledTableData width="70px">{board.id}</StyledTableData>
-                <StyledTableData width="130px">{board.title}</StyledTableData>
-                <StyledTableData width="250px">
-                  <a href={board.url} target="_blank">
-                    {board.url}
-                  </a>
-                </StyledTableData>
-                <StyledTableData width="100px">{board.users.username}</StyledTableData>
-                <StyledTableData width="150px">{board.created_at}</StyledTableData>
+                <TableData>{board.id}</TableData>
+                <TableData>{board.title}</TableData>
+                <TableData>{board.created_at}</TableData>
+                <TableData>{board.users.username}</TableData>
               </TableRow>
             ))}
           </tbody>
@@ -123,4 +117,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default BoardList;

@@ -11,6 +11,9 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+export const Nav = styled.div`
+  width: 100%;
+`;
 
 export const DetailSection = styled.section`
   width: 60%;
@@ -35,17 +38,11 @@ export const Title = styled.h1`
 export const UrlLink = styled.a`
   font-size: 1.2em;
   color: var(--black-50);
-  text-decoration: none;
+  text-decoration: underline;
   margin-bottom: 27px;
-  width: 600px;
-  overflow: hidden;
-  display: block;
-  word-wrap: break-word;
-  word-break: break-all;
-  text-align: center;
 
   &:hover {
-    color: var(--red-30);
+    color: #005bb5;
   }
 `;
 

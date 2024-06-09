@@ -1,11 +1,9 @@
-import NavigationBar from "../components/NavigationBar/NavigationBar";
-import BoardList from "../components/NoticeBoard/BoardList/BoardList";
+import BoardList from "../components/NoticeBoard/BoardWrite/BoardWrite";
 const NoticeboardModify = () => {
   return (
-    <>
-      <NavigationBar />
+    <div>
       <BoardList />
-    </>
+    </div>
   );
 };
 

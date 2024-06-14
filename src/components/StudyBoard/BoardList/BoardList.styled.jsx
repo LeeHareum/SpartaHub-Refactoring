@@ -1,41 +1,34 @@
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
-import "../../styles/designToken.css";
 
 export const BoardSection = styled.section`
-  position: fixed;
-  top: 0;
-  left: 330px;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
-  width: calc(100% - 330px);
-  padding: 20px;
-  box-sizing: border-box;
+  align-items: center;
+  margin-top: 50px;
+  width: 100%;
 `;
 
 export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-  overflow: hidden;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
 `;
 
-export const Title = styled.h1`
-  font-size: 1.5em;
-  margin-top: 50px;
-  margin-bottom: 40px;
-  text-align: left;
-  margin-left: 0;
-  width: 100%;
+export const Ptag = styled.p`
+  font-size: 13px;
+  margin: 0;
+  padding-top: 10px;
 `;
 
 export const Table = styled.table`
   width: 100%;
-  transform: translateY(5%);
-  border-collapse: collapse;
   text-align: center;
+  font-size: smaller;
+  font-weight: normal;
+  border-collapse: collapse;
+  table-layout: auto;
 `;
 
 export const TableHeader = styled.th`
@@ -49,8 +42,8 @@ export const TableHeader = styled.th`
 
 export const TableRow = styled.tr`
   &:hover {
-    background-color: var(--red-99);
     cursor: pointer;
+    background-color: var(--red-99);
   }
 `;
 
@@ -61,31 +54,27 @@ export const TableData = styled.td`
   overflow: hidden;
   text-overflow: ellipsis;
   width: ${(props) => props.width || "auto"};
+  vertical-align: bottom;
 
-  a,
   span,
   div {
-    pointer-events: none;
     text-decoration: none;
     color: var(--black-30);
+    pointer-events: none;
     display: inline-block;
-    width: ${(props) => props.linkWidth || "300px"};
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding-top: 1.5px;
     vertical-align: bottom;
+    padding-top: 3px;
   }
-`;
-
-export const TableLinkData = styled(TableData)`
-  pointer-events: none;
 `;
 
 export const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 70px;
+  margin-top: 50px;
 `;
 
 export const Pagination = styled(ReactPaginate).attrs({
@@ -93,45 +82,70 @@ export const Pagination = styled(ReactPaginate).attrs({
 })`
   display: flex;
   list-style-type: none;
+  padding: 0;
+  margin: 0;
+
   li {
+    display: inline-block;
+    margin: 0 5px;
+
     &.active a {
-      color: var(--pink-50);
-      font-weight: bold;
+      background-color: var(--red-90);
+      color: var(--pink-90);
+      border-radius: 3px;
     }
 
     &:hover:not(.active) a {
-      color: var(--red-80);
+      color: var(--pink-50);
     }
 
     a {
       cursor: pointer;
       padding: 3px 5px;
-      color: var(--black-95);
+      color: var(--black);
       text-decoration: none;
     }
   }
 `;
 
-export const TabContainer = styled.div`
+export const DivBar = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: flex-end;
   cursor: pointer;
+`;
 
-  span {
-    cursor: pointer;
-    padding: 10px;
-    margin: 0 10px;
-    border-radius: 50px;
-    background-color: var(--red-95);
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: var(--red-99);
-    }
+export const Button = styled.button`
+  background-color: var(--pink-50);
+  color: var(--purple-90);
+  margin-bottom: 5px;
+  width: 8%;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--red-30);
+    color: var(--red-99);
   }
 `;
 
-export const Tab = ({ label, onClick }) => {
-  return <span onClick={onClick}>{label}</span>;
-};
+export const Pdiv = styled.div`
+  display: flex;
+  p {
+    text-align: center;
+    line-height: 20px;
+  }
+`;
+
+export const TitleDiv = styled.div`
+  width: 100%;
+  height: 40px;
+  h1 {
+    font-size: 5em;
+    text-align: center;
+    line-height: 200px;
+  }
+`;

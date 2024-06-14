@@ -16,7 +16,7 @@ export const ProfileSection = styled.section`
   left: 0;
   align-items: center;
   background-color: var(--red-90);
-  height: 100vh;
+  height: 100%;
   width: 330px;
   z-index: 1;
 `;

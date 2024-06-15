@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/spartahub_logo.png";
 import supabase from "../../supabaseClient";
-
 import {
   BoardSection,
   Pagination,

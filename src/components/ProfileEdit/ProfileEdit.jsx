@@ -24,6 +24,8 @@ const ProfileEdit = () => {
   const defaultProfileImage = "/default_profile.png";
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [newPassword, setNewPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -67,6 +69,15 @@ const ProfileEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (newPassword && newPassword !== checkPassword) {
+        alert("비밀번호가 일치하기 않습니다.");
+        return;
+      }
+      if (newPassword.length < 6) {
+        alert("비밀번호는 6글자 이상이어야 합니다.");
+        return;
+      }
+
       let profileImageUrl = user?.avatars || "";
       if (image) {
         const { data: imageData, error: imageError } = await supabase.storage
@@ -94,6 +105,12 @@ const ProfileEdit = () => {
       if (error) {
         throw error;
       }
+      if (newPassword) {
+        const { error: passwordError } = await supabase.auth.updateUser({ password: newPassword });
+        if (passwordError) {
+          throw passwordError;
+        }
+      }
 
       dispatch(updateProfile(updatedData));
 
@@ -117,6 +134,18 @@ const ProfileEdit = () => {
       <input type="file" accept="image/*" ref={fileInputRef} style={{ display: "none" }} onChange={handleImageChange} />
       <Form onSubmit={handleSubmit}>
         <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <Input
+          type="password"
+          placeholder="새로운 암호를 입력해주세요"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="새로운 암호를 확인해주세요"
+          value={checkPassword}
+          onChange={(e) => setCheckPassword(e.target.value)}
+        />
         <Select value={track} onChange={(e) => setTrack(e.target.value)}>
           <option value="">Your track</option>
           <option value="React">React</option>
@@ -125,7 +154,7 @@ const ProfileEdit = () => {
           <option value="game">game</option>
           <option value="ios">ios</option>
         </Select>
-        <EditButton type="submit">수정</EditButton>
+        <EditButton type="submit">수 정</EditButton>
       </Form>
     </ProfileEditContainer>
   );

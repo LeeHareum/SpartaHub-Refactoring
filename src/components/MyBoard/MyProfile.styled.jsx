@@ -45,7 +45,10 @@ export const ProfileImg = styled.img`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--red-99);
+  box-shadow: 0 5px 10px rgba(243, 146, 146, 0.703);
 `;
 
 export const ProfileName = styled.p`

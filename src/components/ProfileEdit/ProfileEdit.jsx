@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-// import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { updateUser } from "../../redux/slices/userSlice";
 import supabase from "../../supabaseClient";
 import {
   CircularImage,
@@ -23,7 +21,6 @@ const ProfileEdit = () => {
   const fileInputRef = useRef(null);
   const defaultProfileImage = "/default_profile.png";
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -77,18 +74,24 @@ const ProfileEdit = () => {
         if (imageError) {
           throw imageError;
         }
-        profileImageUrl = imageData;
+        const { data: publicURLData, error: publicURLError } = supabase.storage
+          .from("avatars")
+          .getPublicUrl(imageData.path);
+        if (publicURLError) {
+          throw publicURLError;
+        }
+        profileImageUrl = publicURLData.publicUrl;
       }
       const updatedData = {
         username: username || user.username,
         track: track || user.track,
-        image: `https://eilpbictlqbnuqnikudq.supabase.co/storage/v1/object/public/avatars/${profileImageUrl.path}`
+        image: profileImageUrl || user.image
       };
       const { error } = await supabase.from("users").update(updatedData).eq("id", user.id);
       if (error) {
         throw error;
       }
-      // dispatch(updateUser(data.user));
+
       alert("프로필이 성공적으로 업데이트되었습니다.");
       navigate("/mypage");
     } catch (error) {

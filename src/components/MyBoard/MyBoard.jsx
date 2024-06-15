@@ -94,6 +94,7 @@ const MyPage = () => {
         if (error) {
           throw new Error(`Error fetching user image: ${error.message}`);
         }
+        console.log("User Image URL:", userData.image);
         const profileImageUrl = userData.image || defaultProfileImage;
         setProfileImage(profileImageUrl);
         setUsername(userData.username);

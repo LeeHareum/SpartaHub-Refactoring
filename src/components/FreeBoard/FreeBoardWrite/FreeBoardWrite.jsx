@@ -11,9 +11,9 @@ import {
   Section,
   TextAreaContent,
   TitleDiv
-} from "./BoardWrite.styled";
+} from "./FreeBoardWrite.styled";
 
-const BoardList = () => {
+const FreeBoardList = () => {
   const navigate = useNavigate();
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
@@ -21,18 +21,18 @@ const BoardList = () => {
   const user = useSelector((state) => state.user.user);
 
   const handleAdd = async () => {
-    const { data, error } = await supabase.from("free-board").insert({
+    const { error } = await supabase.from("free-board").insert({
       user_id: user.id,
       title,
       content
     });
 
     if (error) {
-      error.message;
+      console.log(error);
     } else {
       alert("작성 완료!");
       navigate("/freeboard");
-      error.message;
+      // console.log(error);
     }
   };
 
@@ -68,4 +68,4 @@ const BoardList = () => {
   );
 };
 
-export default BoardList;
+export default FreeBoardList;

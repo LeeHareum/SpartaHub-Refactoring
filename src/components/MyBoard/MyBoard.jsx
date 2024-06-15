@@ -49,7 +49,7 @@ const MyPage = () => {
           .order("created_at", { ascending: false });
 
         if (error) {
-          console.log(`Error fetching data from ${tableName}: ${error.message}`);
+          // console.log(`Error fetching data from ${tableName}: ${error.message}`);
           continue;
         } else {
           const formattedData = data.map((item) => ({
@@ -84,7 +84,7 @@ const MyPage = () => {
         setProfileImage(profileImageUrl);
         setUsername(userData.username);
       } catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
       }
     };
     if (user) {

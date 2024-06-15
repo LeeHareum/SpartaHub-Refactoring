@@ -17,9 +17,9 @@ import {
   TableHeader,
   TableRow,
   TitleDiv
-} from "./BoardList.styled";
+} from "./FreeBoardList.styled";
 
-const BoardList = () => {
+const FreeBoardList = () => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const navigate = useNavigate();
   const [boards, setBoards] = useState([]);
@@ -56,21 +56,21 @@ const BoardList = () => {
   }, []);
 
   const handleChange = () => {
-    navigate(`/job/1`);
+    navigate(`/free/1`);
   };
   const offset = currentPage * itemsPerPage;
   const currentPagePosts = boards.slice(offset, offset + itemsPerPage);
   const pageCount = Math.ceil(boards.length / itemsPerPage);
 
   const handleRowClick = (id) => {
-    navigate(`/post/${id}`);
+    navigate(`/freepost/${id}`);
   };
 
   return (
     <Container>
       <BoardSection>
         <TitleDiv>
-          <h2 style={{ fontWeight: "bold", fontSize: "1.6rem" }}>채용공고 공유</h2>
+          <h2 style={{ fontWeight: "bold", fontSize: "1.6rem" }}>자유게시판</h2>
         </TitleDiv>
         <DivBar>
           <Pdiv>
@@ -86,8 +86,8 @@ const BoardList = () => {
             <TableRow>
               <TableHeader>게시물 번호</TableHeader>
               <TableHeader>제목</TableHeader>
-              <TableHeader>일자</TableHeader>
               <TableHeader>닉네임</TableHeader>
+              <TableHeader>일자</TableHeader>
             </TableRow>
           </thead>
           <tbody>
@@ -95,8 +95,8 @@ const BoardList = () => {
               <TableRow key={board.id} onClick={() => handleRowClick(board.id)}>
                 <TableData>{board.id}</TableData>
                 <TableData>{board.title}</TableData>
-                <TableData>{board.created_at}</TableData>
                 <TableData>{board.users.username}</TableData>
+                <TableData>{board.created_at}</TableData>
               </TableRow>
             ))}
           </tbody>
@@ -117,4 +117,4 @@ const BoardList = () => {
   );
 };
 
-export default BoardList;
+export default FreeBoardList;

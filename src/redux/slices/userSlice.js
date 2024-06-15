@@ -16,11 +16,16 @@ const userSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
     },
-    updateUser(state, action) {
-      state.user = action.payload;
+    updateProfile(state, action) {
+      if (state.user) {
+        state.user = {
+          ...state.user,
+          ...action.payload
+        };
+      }
     }
   }
 });
 
-export const { login, logout, updateUser } = userSlice.actions;
+export const { login, logout, updateProfile } = userSlice.actions;
 export default userSlice.reducer;

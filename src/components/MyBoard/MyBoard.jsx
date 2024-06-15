@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/spartahub_logo.png";
 import supabase from "../../supabaseClient";
-
 import {
   BoardSection,
   Pagination,
@@ -94,6 +93,7 @@ const MyPage = () => {
         if (error) {
           throw new Error(`Error fetching user image: ${error.message}`);
         }
+        console.log("User Image URL:", userData.image);
         const profileImageUrl = userData.image || defaultProfileImage;
         setProfileImage(profileImageUrl);
         setUsername(userData.username);

@@ -3,6 +3,7 @@ import ViewFreePost from "../components/FreeBoard/ViewFreePost/ViewFreePost";
 import MyBoardEdit from "../components/MyBoardEdit/MyBoardEdit";
 import ViewPost from "../components/NoticeBoard/ViewPost/ViewPost";
 import Profile from "../components/ProfileEdit/ProfileEdit";
+import StudyViewPost from "../components/StudyBoard/ViewPost/StudyViewPost";
 import NavLayout from "../components/layouts/NavLayout";
 import FreeBoard from "../pages/FreeBoard";
 import FreeBoardModify from "../pages/FreeBoardModify";
@@ -13,6 +14,8 @@ import NoticeBoard from "../pages/NoticeBoard";
 import NoticeboardModify from "../pages/NoticeboardModify";
 import PasswordResetPage from "../pages/PasswordResetPage";
 import PasswordResetRequestPage from "../pages/PasswordResetRequestPage";
+import StudyBoard from "../pages/StudyBoard";
+import StudyWrite from "../pages/StudyWrite";
 
 const Router = createBrowserRouter([
   {
@@ -22,6 +25,9 @@ const Router = createBrowserRouter([
       { path: "/post/:id", element: <ViewPost /> },
       { path: "/posts/:tableName/:id/edit", element: <MyBoardEdit /> },
       { path: "/job/:id", element: <NoticeboardModify /> },
+      { path: "/studyboard", element: <StudyBoard /> },
+      { path: "/study/write", element: <StudyWrite /> },
+      { path: "/study/:id", element: <StudyViewPost /> },
       { path: "/free/:id", element: <FreeBoardModify /> },
       { path: "/study", element: <></> },
       { path: "/freeboard", element: <FreeBoard /> },

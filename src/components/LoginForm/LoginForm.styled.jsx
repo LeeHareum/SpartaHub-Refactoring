@@ -88,3 +88,16 @@ export const Select = styled.select`
 export const FlexDiv = styled.div`
   display: flex;
 `;
+
+export const GoogleIcon = styled.img`
+  margin-left: 5px;
+  height: 35px;
+`;
+
+export const GoogleIconContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+  cursor: pointer;
+`;

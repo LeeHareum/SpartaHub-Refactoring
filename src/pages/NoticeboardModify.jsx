@@ -1,8 +1,8 @@
-import BoardList from "../components/NoticeBoard/BoardWrite/BoardWrite";
+import BoardWrite from "../components/NoticeBoard/BoardWrite/BoardWrite";
 const NoticeboardModify = () => {
   return (
     <div>
-      <BoardList />
+      <BoardWrite />
     </div>
   );
 };

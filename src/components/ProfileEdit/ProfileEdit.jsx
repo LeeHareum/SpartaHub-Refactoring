@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import supabase from "../../supabaseClient";
+import { useDispatch } from "react-redux";
+import { updateProfile } from "../../redux/slices/userSlice";
 import {
   CircularImage,
   EditButton,
@@ -21,6 +23,7 @@ const ProfileEdit = () => {
   const fileInputRef = useRef(null);
   const defaultProfileImage = "/default_profile.png";
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -92,10 +95,12 @@ const ProfileEdit = () => {
         throw error;
       }
 
+      dispatch(updateProfile(updatedData));
+
       alert("프로필이 성공적으로 업데이트되었습니다.");
       navigate("/mypage");
     } catch (error) {
-      error.message;
+      console.error("프로필업데이트 에러:", error.message);
       setNotification("프로필 업데이트 중 오류가 발생했습니다.");
     }
   };

@@ -20,14 +20,14 @@ const MyBoardEdit = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [url, setUrl] = useState("");
-  const { id } = useParams();
+  const { id, tableName } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const { data, error } = await supabase.from("job-board").select("*").eq("id", parseInt(id)).single();
+        const { data, error } = await supabase.from(tableName).select("*").eq("id", parseInt(id)).single();
 
         if (error) {
           console.error("게시물을 불러오는 중 오류가 발생했습니다:", error);
@@ -45,36 +45,43 @@ const MyBoardEdit = () => {
       }
     };
     fetchPost();
-  }, [id, navigate]);
+  }, [id, navigate, tableName]);
 
   const handleUpdate = async () => {
     try {
-      const { error } = await supabase.from("job-board").update({ title, url, content }).eq("id", parseInt(id));
+      let updateData = { title, content };
+
+      // Only include 'url' if it exists in the current table
+      if (tableName === "job-board" || tableName === "free-board") {
+        updateData.url = url;
+      }
+
+      const { error } = await supabase.from(tableName).update(updateData).eq("id", parseInt(id));
 
       if (error) {
-        error.message;
+        console.error("게시물 수정 중 오류가 발생했습니다:", error);
       } else {
-        dispatch(updatePost({ id: parseInt(id), title, url, content }));
+        dispatch(updatePost({ id: parseInt(id), ...updateData }));
         alert("게시물이 수정되었습니다.");
         navigate("/mypage");
       }
     } catch (error) {
-      error.message;
+      console.error("게시물 수정 중 오류가 발생했습니다:", error);
     }
   };
 
   const handleDelete = async () => {
     try {
-      const { error } = await supabase.from("job-board").delete().eq("id", parseInt(id));
+      const { error } = await supabase.from(tableName).delete().eq("id", parseInt(id));
 
       if (error) {
-        error.message;
+        console.error("게시물 삭제 중 오류가 발생했습니다:", error);
       } else {
         dispatch(deletePost({ id: parseInt(id) }));
         navigate("/mypage");
       }
     } catch (error) {
-      error.message;
+      console.error("게시물 삭제 중 오류가 발생했습니다:", error);
     }
   };
 

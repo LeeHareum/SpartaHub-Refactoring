@@ -58,7 +58,7 @@ const NavigationBar = () => {
           <NavLink to="/noticeboard">취업공유</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/study">스터디/프로젝트</NavLink>
+          <NavLink to="/studyboard">스터디/프로젝트</NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/freeboard">자유게시판</NavLink>

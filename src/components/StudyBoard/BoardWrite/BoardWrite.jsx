@@ -16,17 +16,15 @@ import {
 const BoardList = () => {
   const navigate = useNavigate();
   const [content, setContent] = useState("");
-  const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
 
   const user = useSelector((state) => state.user.user);
 
   const handleAdd = async () => {
-    const { error } = await supabase.from("job-board").insert({
+    const { error } = await supabase.from("study-board").insert({
       user_id: user.id,
       title,
-      content,
-      url
+      content
     });
 
     if (error) {
@@ -34,7 +32,7 @@ const BoardList = () => {
       console.error("작성 에러:", error);
     } else {
       alert("작성 완료!");
-      navigate("/noticeboard");
+      navigate("/studyboard");
     }
   };
 
@@ -51,14 +49,6 @@ const BoardList = () => {
             value={title}
             onChange={(e) => {
               setTitle(e.target.value);
-            }}
-          />
-          <EditLabel>URL</EditLabel>
-          <Input
-            type="text"
-            value={url}
-            onChange={(e) => {
-              setUrl(e.target.value);
             }}
           />
           <EditLabel>내 용</EditLabel>

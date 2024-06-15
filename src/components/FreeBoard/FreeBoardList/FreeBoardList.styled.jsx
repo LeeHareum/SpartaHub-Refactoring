@@ -37,9 +37,6 @@ export const TableHeader = styled.th`
   border-top: 1.7px solid var(--black-30);
   border-bottom: 1.7px solid var(--black-30);
   text-align: center;
-  &:nth-child(3) {
-    padding-left: 70px;
-  }
 `;
 
 export const TableRow = styled.tr`

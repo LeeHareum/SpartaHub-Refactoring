@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import googleIcon from "../../assets/google_icon.png";
 import homeLogo from "../../assets/spartahub_logo.png";
 import { login } from "../../redux/slices/userSlice";
 import supabase from "../../supabaseClient";
@@ -9,6 +10,8 @@ import {
   Container,
   FlexDiv,
   Form,
+  GoogleIcon,
+  GoogleIconContainer,
   HubImg,
   ImgContainer,
   Input,
@@ -20,7 +23,6 @@ import {
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const loginUser = useSelector((state) => state.user.user);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -42,6 +44,7 @@ const LoginForm = () => {
     return username.length >= 2;
   };
 
+  // 회원가입
   const handleSignup = async (event) => {
     event.preventDefault();
 
@@ -54,7 +57,7 @@ const LoginForm = () => {
       return;
     }
     if (!isValidUsername(username)) {
-      alert("닉네임은 2자 이상이여야 합니다.");
+      alert("닉네임은 2자 이상이어야 합니다.");
       return;
     }
     if (password !== passwordCheck) {
@@ -63,21 +66,46 @@ const LoginForm = () => {
     }
 
     try {
-      const { data: user, error } = await supabase.auth.signUp({
+      // 이메일 중복 확인
+      const { data: existingUser, error: checkError } = await supabase
+        .from("users")
+        .select("*")
+        .eq("email", email)
+        .single();
+
+      if (checkError && checkError.code !== "PGRST116") {
+        throw checkError;
+      }
+
+      if (existingUser) {
+        alert("이미 존재하는 이메일입니다. 다른 이메일을 사용해주세요.");
+        return;
+      }
+
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          data: { username }
+          data: { username, track, provider: null }
         }
       });
 
-      if (error) throw error;
+      if (error) {
+        if (error.message === "User already registered") {
+          alert("이미 존재하는 이메일입니다. 다른 이메일을 사용해주세요.");
+          return;
+        } else {
+          throw error;
+        }
+      }
 
-      if (user) {
-        const { error: insertError } = await supabase.from("users").insert([{ id: user.user.id, username, track }]);
+      if (data.user) {
+        const { error: insertError } = await supabase
+          .from("users")
+          .insert([{ id: data.user.id, email, username, track, provider: null }]);
 
         if (insertError) throw insertError;
-        setUser(user);
+        setUser(data.user);
         setUsername(username);
 
         alert("회원가입 성공! 환영합니다. " + username + "님!");
@@ -90,10 +118,11 @@ const LoginForm = () => {
         throw new Error("회원가입 후 사용자 데이터가 정의되지 않았습니다");
       }
     } catch (error) {
-      error.message;
+      console.error(error.message);
     }
   };
 
+  // 로그인
   const handleLogin = async (event) => {
     event.preventDefault();
 
@@ -106,30 +135,62 @@ const LoginForm = () => {
       return;
     }
 
+    // provider가 null값이어야 함.
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+      const { data: user, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("email", email)
+        .is("provider", null)
+        .single();
 
       if (error) {
         throw error;
       }
 
-      if (data.user) {
-        dispatch(login(data.user));
-        navigate("/mypage");
+      if (user) {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) {
+          throw error;
+        }
+
+        if (data.user) {
+          dispatch(login(data.user));
+          navigate("/mypage");
+        }
+      } else {
+        alert("일반 회원가입 이메일이 아니거나, 해당 이메일로 구글 로그인이 필요합니다.");
       }
     } catch (error) {
-      error.message;
+      alert("존재하지 않는 계정입니다.");
     }
   };
 
-  useEffect(() => {
-    if (loginUser) {
-      navigate("/mypage");
+  // 구글 로그인
+  const googleLogin = async () => {
+    try {
+      const { data } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { queryParams: { access_type: "offline", prompt: "consent" } }
+      });
+
+      navigate("/");
+
+      console.log("data => ", data);
+    } catch (error) {
+      console.error("Google login error:", error);
+      alert(error.message);
     }
-  }, [loginUser, navigate]);
+  };
+
+  // 비밀번호 재설정
+  const moveToResetPassword = () => {
+    navigate("/passwordresetrequest");
+  };
 
   return (
     <Container>
@@ -155,8 +216,14 @@ const LoginForm = () => {
               />
               <Button onClick={handleLogin}>로그인</Button>
               <p style={{ marginTop: "16px" }}>
+                비밀번호를 잊었다면? <Span onClick={moveToResetPassword}>비밀번호 찾기</Span>
+              </p>
+              <p style={{ marginTop: "16px" }}>
                 계정이 없으신가요? <Span onClick={() => setIsLogin(false)}>회원가입</Span>
               </p>
+              <GoogleIconContainer onClick={googleLogin}>
+                또는, 구글계정으로 로그인 <GoogleIcon src={googleIcon} />
+              </GoogleIconContainer>
             </div>
             <ImgContainer>
               <HubImg src={homeLogo} alt="홈 로고" />
@@ -217,7 +284,7 @@ const LoginForm = () => {
               </p>
             </div>
             <ImgContainer>
-              <HubImg src={homeLogo} alt="홈 로고" />
+              <HubImg src={homeLogo} alt="홈 로고" onClick={googleLogin} />
             </ImgContainer>
           </FlexDiv>
         </Form>
